@@ -4,5 +4,6 @@ module com.example.hanged {
 
 
     opens com.example.hanged to javafx.fxml;
+    opens com.example.hanged.controller to javafx.fxml;
     exports com.example.hanged;
 }
