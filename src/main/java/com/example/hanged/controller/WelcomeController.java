@@ -26,11 +26,25 @@ public class WelcomeController {
             alert.setHeaderText("Palabra demasiado corta");
 
             // Establecer el contenido de la alerta
-            alert.setContentText("Por favor regrese e ingrese una palabra valida");
+            alert.setContentText("Por favor ingrese una palabra valida");
 
             // Mostrar la alerta y esperar a que el usuario la cierre
             alert.showAndWait();
-        }else {
+        } else if (secretWordTextField.getText().matches("^[a-zA-Z]+$")==false) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            // Establecer el título de la alerta
+            alert.setTitle("Error");
+
+            // Establecer el encabezado de la alerta
+            alert.setHeaderText("Palabra con caracteres prohibidos");
+
+            // Establecer el contenido de la alerta
+            alert.setContentText("Por favor ingrese una palabra valida");
+
+            // Mostrar la alerta y esperar a que el usuario la cierre
+            alert.showAndWait();
+        } else {
             SecretWord secretWord = new SecretWord(secretWordTextField.getText().trim());
             GameStage.getInstance().getGameController().setSecretWord(secretWord);
             WelcomeStage.deleteInstance();
