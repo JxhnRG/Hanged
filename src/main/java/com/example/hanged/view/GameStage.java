@@ -1,5 +1,6 @@
 package com.example.hanged.view;
 
+import com.example.hanged.controller.GameController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GameStage extends Stage {
+    private GameController gameController;
     public GameStage() throws IOException {
         //Importamos la Vista de bienvenida
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -31,10 +33,15 @@ public class GameStage extends Stage {
         //Hacemos el show al stage
         show();
     }
+    public GameController getGameController(){
+        return gameController;
+    }
     public static GameStage getInstance() throws IOException{
         return GameStage.GameStageHolder.INSTANCE = new GameStage();
     }
+
     private static class GameStageHolder{
         private static GameStage INSTANCE;
     }
+
 }

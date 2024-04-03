@@ -18,11 +18,13 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints maxHeight="400.66666666666663" minHeight="10.0" prefHeight="71.66666158040366" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="400.66666666666663" minHeight="10.0" prefHeight="329.00000508626306" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="400.66666666666663" minHeight="10.0" prefHeight="107.99998188018799" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="400.66666666666663" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="400.66666666666663" minHeight="10.0" prefHeight="268.3333333333333" vgrow="SOMETIMES" />
       <RowConstraints />
   </rowConstraints>
    <children>
+      <HBox fx:id="gameHBoxLayout" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2" />
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
             <ImageView fitHeight="153.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
@@ -49,7 +51,6 @@
                   <Font name="Arial Black" size="16.0" />
                </font>
             </Label>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" />
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
