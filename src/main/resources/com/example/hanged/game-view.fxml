@@ -42,7 +42,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
          <children>
-            <Label text="Digita en cada casilla una letra">
+            <Label fx:id="labelGame" text="Digita en cada casilla una letra">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -66,24 +66,30 @@
       </VBox>
       <GridPane alignment="TOP_CENTER" GridPane.rowIndex="2">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.66667302449545" minWidth="10.0" prefWidth="87.33333333333333" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.99999618530273" minWidth="10.0" prefWidth="96.66664632161458" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.66666666666666" minWidth="10.0" prefWidth="153.3333536783854" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox fx:id="gameHBoxLayout" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" />
+            <HBox fx:id="gameHBoxLayout" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Insertar Palabra" />
+                  <TextField fx:id="textFieldInsertLetter" />
+                  <Button fx:id="buttonInsertLetter" mnemonicParsing="false" onAction="#onHandleButtonInsert" text="Insertar Letra" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="Ayuda" />
+                  <Button mnemonicParsing="false" onAction="#onHandleButtonHelp" text="Ayuda" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onHandleButtonBackWelcome" text="Ingresar palabra nueva" />
                </children>
             </VBox>
          </children>
