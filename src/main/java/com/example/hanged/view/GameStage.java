@@ -16,7 +16,8 @@ public class GameStage extends Stage {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
                 "/com/example/hanged/game-view.fxml"));
         //Creamos el Parent
-        Parent root = loader.load();
+        Parent root= loader.load();
+        gameController = loader.getController();
         //Creamos una nueva Escena
         Scene scene = new Scene(root);
         //Insertamos la Escena al Stage
@@ -37,7 +38,12 @@ public class GameStage extends Stage {
         return gameController;
     }
     public static GameStage getInstance() throws IOException{
-        return GameStage.GameStageHolder.INSTANCE = new GameStage();
+        return GameStageHolder.INSTANCE = new GameStage();
+    }
+
+    public static void deleteInstance(){
+    GameStageHolder.INSTANCE.close();
+    GameStageHolder.INSTANCE=null;
     }
 
     private static class GameStageHolder{

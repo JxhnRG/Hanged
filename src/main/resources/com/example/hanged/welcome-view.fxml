@@ -39,7 +39,7 @@
             <Font name="Hack Nerd Font Mono Regular" size="12.0" />
          </font>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#onHandleButtomPlay" prefHeight="48.0" prefWidth="120.0" style="-fx-background-color: #9badb7;">
+      <Button mnemonicParsing="false" onAction="#onHandleButtonPlay" prefHeight="48.0" prefWidth="120.0" style="-fx-background-color: #9badb7;">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@images/ButtonPlay.png" />
