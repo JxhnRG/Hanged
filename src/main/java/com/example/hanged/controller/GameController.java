@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
-import java.util.List;
 
 public class GameController {
     @FXML
@@ -43,6 +42,7 @@ public class GameController {
     @FXML
     private ImageView imageViewHanged;
     private int countLifes = 1;
+    private int countImages=0;
 
     @FXML
     public void onHandleButtonPlay(ActionEvent event) {
@@ -61,71 +61,59 @@ public class GameController {
     @FXML
     public void onHandleButtonInsert(ActionEvent event) throws IOException {
         String letter = textFieldInsertLetter.getText().trim();
-        if (countLifes < 6) {
-            if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-                // Establecer el título de la alerta
-                alert.setTitle("Error");
-
-                // Establecer el encabezado de la alerta
-                alert.setHeaderText("Caracter prohibido");
-
-                // Establecer el contenido de la alerta
-                alert.setContentText("Por favor ingrese una letra del alfabeto");
-
-                // Mostrar la alerta y esperar a que el usuario la cierre
-                alert.showAndWait();
-            } else {
-                for (int i = 0; i < secretWord.getWord().length(); i++) {
-                    if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
-                        wordsTxts[i].setText(letter);
-                    }
-                    if (isWordComplete()) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        // Establecer el título de la alerta
-                        alert.setTitle("GANASTE");
-
-                        // Establecer el encabezado de la alerta
-                        alert.setHeaderText("Felicidades");
-
-                        // Establecer el contenido de la alerta
-                        alert.setContentText("Haz adivinado la palabra secreta.");
-
-                        // Mostrar la alerta y esperar a que el usuario la cierre
-                        alert.showAndWait();
-                        WelcomeStage.getInstance();
-                        GameStage.deleteInstance();
-
-                    }
-                    countLifes();
-                }
-            }
-            textFieldInsertLetter.clear();
-            countLifes++;
-        } else {
-            // Muestra un mensaje indicando que el usuario ha perdido
+        if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
             // Establecer el título de la alerta
-            alert.setTitle("PERDISTE");
+            alert.setTitle("Error");
 
             // Establecer el encabezado de la alerta
-            alert.setHeaderText("Has perdido");
+            alert.setHeaderText("Caracter prohibido");
 
             // Establecer el contenido de la alerta
-            alert.setContentText("Haz agotado tus 6 vidas.");
+            alert.setContentText("Por favor ingrese una letra del alfabeto");
 
             // Mostrar la alerta y esperar a que el usuario la cierre
             alert.showAndWait();
-            WelcomeStage.getInstance();
-            GameStage.deleteInstance();
+            textFieldInsertLetter.clear();
+        }else{
+            if (countLifes <= 6) {
+                for (int i = 0; i < secretWord.getWord().length(); i++) {
+                    if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
+                        wordsTxts[i].setText(letter);
+                        alertWinner();
+                    }
+                    countLifes();
+                }
+                if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText()))){
+                    actualizar();
+                }
+                textFieldInsertLetter.clear();
+            } else{
+                // Muestra un mensaje indicando que el usuario ha perdido
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                // Establecer el título de la alerta
+                alert.setTitle("PERDISTE");
+
+                // Establecer el encabezado de la alerta
+                alert.setHeaderText("Has perdido");
+
+                // Establecer el contenido de la alerta
+                alert.setContentText("Haz agotado tus 6 vidas.");
+
+                // Mostrar la alerta y esperar a que el usuario la cierre
+                alert.showAndWait();
+                WelcomeStage.getInstance();
+                GameStage.deleteInstance();
+                countLifes=1;
+                countImages=0;
+            }
         }
         countLifes();
-        actualizar();
     }
 
     @FXML
-    public void onHandleButtonHelp(ActionEvent event) {
+    public void onHandleButtonHelp(ActionEvent event)throws IOException {
         if (helpCount < 3) {
             for (int i = 0; i < wordsTxts.length; i++) {
                 if (wordsTxts[i].getText().isEmpty()) {
@@ -134,7 +122,8 @@ public class GameController {
                     break;
                 }
             }
-            helpCount++; // Incrementar el contador
+            helpCount++;// Incrementar el contador
+            alertWinner();
         } else {
             // Muestra un mensaje indicando que la función de ayuda ya se ha utilizado tres veces
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -191,9 +180,33 @@ public class GameController {
 
     }
     public void actualizar(){
+        countLifes++;
+        countImages++;
         String PATH = "/com/example/hanged/images/hangedImage/";
-        Image image= new Image(String.valueOf(getClass().getResource(PATH + "hanged" + countLifes + ".png")));
+        Image image= new Image(String.valueOf(getClass().getResource(PATH + "hanged" + countImages + ".png")));
         imageViewHanged.setImage(image);
+        System.out.println(countImages);
+    }
+    public void alertWinner() throws IOException{
+        if (isWordComplete()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            // Establecer el título de la alerta
+            alert.setTitle("GANASTE");
+
+            // Establecer el encabezado de la alerta
+            alert.setHeaderText("Felicidades");
+
+            // Establecer el contenido de la alerta
+            alert.setContentText("Haz adivinado la palabra secreta.");
+
+            // Mostrar la alerta y esperar a que el usuario la cierre
+            alert.showAndWait();
+            WelcomeStage.getInstance();
+            GameStage.deleteInstance();
+            countLifes=1;
+            countImages=0;
+
+        }
     }
 }
 
