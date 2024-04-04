@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import com.example.hanged.view.alert.AlertBox;
 
 import java.io.IOException;
 
@@ -32,7 +33,7 @@ public class GameController {
     private Button buttonHelp;
 
     @FXML
-    private int helpCount = 1;
+    private int helpCount = 0;
 
     private SecretWord secretWord;
     @FXML
@@ -62,34 +63,16 @@ public class GameController {
     public void onHandleButtonInsert(ActionEvent event) throws IOException {
         String letter = textFieldInsertLetter.getText().trim();
         if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-            // Establecer el título de la alerta
-            alert.setTitle("Error");
-
-            // Establecer el encabezado de la alerta
-            alert.setHeaderText("Caracter prohibido");
-
-            // Establecer el contenido de la alerta
-            alert.setContentText("Por favor ingrese una letra del alfabeto");
-
-            // Mostrar la alerta y esperar a que el usuario la cierre
-            alert.showAndWait();
+            String title = "Error";
+            String header = "Caracter prohibido";
+            String content = "Por favor ingrese una letra del alfabeto";
+            new AlertBox().showMessage(title, header, content);
             textFieldInsertLetter.clear();
         } else if (textFieldInsertLetter.getText().length()>1) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-            // Establecer el título de la alerta
-            alert.setTitle("Error");
-
-            // Establecer el encabezado de la alerta
-            alert.setHeaderText("Caracter muy largo");
-
-            // Establecer el contenido de la alerta
-            alert.setContentText("Por favor ingrese un solo caracter");
-
-            // Mostrar la alerta y esperar a que el usuario la cierre
-            alert.showAndWait();
+            String title = "Error";
+            String header = "Caracter muy largo";
+            String content = "Por favor ingrese un solo caracter";
+            new AlertBox().showMessage(title, header, content);
             textFieldInsertLetter.clear();
         } else{
             if (countLifes <= 6) {
@@ -105,19 +88,10 @@ public class GameController {
                 }
                 textFieldInsertLetter.clear();
             } else{
-                // Muestra un mensaje indicando que el usuario ha perdido
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                // Establecer el título de la alerta
-                alert.setTitle("PERDISTE");
-
-                // Establecer el encabezado de la alerta
-                alert.setHeaderText("Has perdido");
-
-                // Establecer el contenido de la alerta
-                alert.setContentText("Haz agotado tus 6 vidas.");
-
-                // Mostrar la alerta y esperar a que el usuario la cierre
-                alert.showAndWait();
+                String title = "Error";
+                String header = "Vidas agotadas";
+                String content = "No puedes ingresar mas letras";
+                new AlertBox().showMessage(title, header, content);
                 WelcomeStage.getInstance();
                 GameStage.deleteInstance();
                 countLifes=1;
@@ -140,19 +114,10 @@ public class GameController {
             helpCount++;// Incrementar el contador
             alertWinner();
         } else {
-            // Muestra un mensaje indicando que la función de ayuda ya se ha utilizado tres veces
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            // Establecer el título de la alerta
-            alert.setTitle("AYUDAS");
-
-            // Establecer el encabezado de la alerta
-            alert.setHeaderText("Ayudas agotadas");
-
-            // Establecer el contenido de la alerta
-            alert.setContentText("Haz acabado las 3 ayudas disponibles.");
-
-            // Mostrar la alerta y esperar a que el usuario la cierre
-            alert.showAndWait();
+            String title = "AYUDAS";
+            String header = "Ayudas agotadas";
+            String content = "Haz acabado las 3 ayudas disponibles.";
+            new AlertBox().showMessage(title, header, content);
         }
     }
 
@@ -204,17 +169,10 @@ public class GameController {
     public void alertWinner() throws IOException{
         if (isWordComplete()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            // Establecer el título de la alerta
-            alert.setTitle("GANASTE");
-
-            // Establecer el encabezado de la alerta
-            alert.setHeaderText("Felicidades");
-
-            // Establecer el contenido de la alerta
-            alert.setContentText("Haz adivinado la palabra secreta.");
-
-            // Mostrar la alerta y esperar a que el usuario la cierre
-            alert.showAndWait();
+            String title = "GANASTE";
+            String header = "Felicidades";
+            String content = "Haz adivinado la palabra secreta.";
+            new AlertBox().showMessage(title, header, content);
             WelcomeStage.getInstance();
             GameStage.deleteInstance();
             countLifes=1;
