@@ -90,7 +90,7 @@ public class GameController {
                     countLifes();// Contar las vidas restantes
                 }
                 if (!secretWord.getWord().contains(textFieldInsertLetter.getText().toLowerCase())){
-                    actualizar();
+                    update();
                 }
                 textFieldInsertLetter.clear();
             }
@@ -177,7 +177,7 @@ public class GameController {
 
     }
     // Método que actualiza la imagen del ahorcado
-    public void actualizar(){
+    public void update(){
         countLifes++;
         countImages++;
         String PATH = "/com/example/hanged/images/hangedImage/";
