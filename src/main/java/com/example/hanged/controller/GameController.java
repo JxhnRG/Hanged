@@ -61,33 +61,41 @@ public class GameController {
 
     @FXML
     public void onHandleButtonInsert(ActionEvent event) throws IOException {
-        String letter = textFieldInsertLetter.getText().trim();
+        String letter = textFieldInsertLetter.getText().trim();// Obtener la letra ingresada por el usuario
+        // Verificar si la letra ingresada es válida
         if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
             String title = "Error";
             String header = "Caracter prohibido";
             String content = "Por favor ingrese una letra del alfabeto";
             new AlertBox().showMessage(title, header, content);
             textFieldInsertLetter.clear();
-        } else if (textFieldInsertLetter.getText().length()>1) {
+        }
+        // Verificar si la letra ingresada es muy corta/vacia
+        else if (textFieldInsertLetter.getText().length()>1) {
             String title = "Error";
             String header = "Caracter muy largo";
             String content = "Por favor ingrese un solo caracter";
             new AlertBox().showMessage(title, header, content);
             textFieldInsertLetter.clear();
-        } else{
+        }
+        else{
+            // Condicional para verficar el numero de vidas restantes.
             if (countLifes <= 6) {
+                // Recorrer la palabra secreta para verificar si la letra ingresada por el usuario coincide con alguna letra de la palabra secreta
                 for (int i = 0; i < secretWord.getWord().length(); i++) {
                     if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
                         wordsTxts[i].setText(letter);
                         alertWinner();
                     }
-                    countLifes();
+                    countLifes();// Contar las vidas restantes
                 }
                 if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText()))){
                     actualizar();
                 }
                 textFieldInsertLetter.clear();
-            } else{
+            }
+            // Mostrar un mensaje de alerta si se han agotado las vidas
+            else{
                 String title = "Error";
                 String header = "Vidas agotadas";
                 String content = "No puedes ingresar mas letras";
@@ -104,23 +112,25 @@ public class GameController {
     @FXML
     public void onHandleButtonHelp(ActionEvent event)throws IOException {
         if (helpCount < 3) {
+            // Recorrer los campos de texto para verificar si la letra coincide con alguna letra de la palabra secreta
             for (int i = 0; i < wordsTxts.length; i++) {
-                if (wordsTxts[i].getText().isEmpty()) {
+                if (wordsTxts[i].getText().isEmpty()) {// Verificar si el campo de texto está vacío
                     char letter = secretWord.getLetterAtIndex(i); // Obtener la letra correspondiente al índice
                     wordsTxts[i].setText(Character.toString(letter)); // Mostrar la letra en el campo de texto
                     break;
                 }
             }
             helpCount++;// Incrementar el contador
-            alertWinner();
+            alertWinner();// Verificar si la palabra secreta ha sido completada
         } else {
+            // Mostrar un mensaje de alerta si se han agotado las ayudas
             String title = "AYUDAS";
             String header = "Ayudas agotadas";
             String content = "Haz acabado las 3 ayudas disponibles.";
             new AlertBox().showMessage(title, header, content);
         }
     }
-
+    // Método que verifica si la palabra secreta ha sido completada
     private boolean isWordComplete() {
         for (int i = 0; i < wordsTxts.length; i++) {
             if (wordsTxts[i].getText().isEmpty()) {
@@ -129,17 +139,16 @@ public class GameController {
         }
         return true;
     }
-
+    // Método que se ejecuta al presionar el botón de 'VOLVER' en la ventana de juego y cierra la ventana actual y abre la anterior
     @FXML
     public void onHandleButtonBackWelcome(ActionEvent event) throws IOException {
         WelcomeStage.getInstance();
         GameStage.deleteInstance();
     }
-
     public void setSecretWord(SecretWord secretWord) {
         this.secretWord = secretWord;
     }
-
+    // Método que inserta los campos de texto en el HBox
     public void texFieldInsert() {
         wordsTxts = new TextField[secretWord.getWord().length()];
         for (int i = 0; i < secretWord.getWord().length(); i++) {
@@ -150,7 +159,7 @@ public class GameController {
         }
 
     }
-
+    // Método que cuenta las vidas restantes
     public void countLifes() {
         if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText()))) {
             int maxLifes = 6;
@@ -159,6 +168,7 @@ public class GameController {
         }
 
     }
+    // Método que actualiza la imagen del ahorcado
     public void actualizar(){
         countLifes++;
         countImages++;
@@ -166,7 +176,9 @@ public class GameController {
         Image image= new Image(String.valueOf(getClass().getResource(PATH + "hanged" + countImages + ".png")));
         imageViewHanged.setImage(image);
     }
+    // Método que muestra una alerta al usuario cuando adivina la palabra secreta
     public void alertWinner() throws IOException{
+        // Verificar si la palabra secreta ha sido completada y despues muestra la alerta
         if (isWordComplete()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             String title = "GANASTE";

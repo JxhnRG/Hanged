@@ -17,6 +17,7 @@ public class WelcomeController {
     private TextField secretWordTextField;
     @FXML
     public void onHandleButtonPlay(ActionEvent event) throws IOException {
+        //Condicionales para verificar que la palabra sea valida
         if(secretWordTextField.getText().length()<=0) {
             String tittle = "Error";
             String header = "Palabra demasiado corta";
@@ -27,7 +28,9 @@ public class WelcomeController {
             String header = "Palabra con caracteres prohibidos";
             String content = "Por favor ingrese una palabra valida";
             new AlertBox().showMessage(tittle, header, content);
-        } else {
+        }
+        //Si la palabra es valida se crea un objeto de tipo SecretWord y se setea en el GameController
+        else {
             SecretWord secretWord = new SecretWord(secretWordTextField.getText().trim());
             GameStage.getInstance().getGameController().setSecretWord(secretWord);
             WelcomeStage.deleteInstance();

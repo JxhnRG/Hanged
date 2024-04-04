@@ -31,6 +31,7 @@ public class WelcomeStage extends Stage {
         //Hacemos el show al stage
         show();
     }
+    //Patron Singleton
     public static WelcomeStage getInstance() throws IOException{
         return WelcomeStageHolder.INSTANCE = new WelcomeStage();
     }
