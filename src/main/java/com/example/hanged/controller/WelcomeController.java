@@ -31,7 +31,7 @@ public class WelcomeController {
         }
         //Si la palabra es valida se crea un objeto de tipo SecretWord y se setea en el GameController
         else {
-            SecretWord secretWord = new SecretWord(secretWordTextField.getText().trim());
+            SecretWord secretWord = new SecretWord(secretWordTextField.getText().toLowerCase().trim());
             GameStage.getInstance().getGameController().setSecretWord(secretWord);
             WelcomeStage.deleteInstance();
         }

@@ -63,7 +63,7 @@ public class GameController {
     public void onHandleButtonInsert(ActionEvent event) throws IOException {
         String letter = textFieldInsertLetter.getText().trim();// Obtener la letra ingresada por el usuario
         // Verificar si la letra ingresada es válida
-        if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
+        if (textFieldInsertLetter.getText().matches("^[a-zA-ZÑñ]+$") == false) {
             String title = "Error";
             String header = "Caracter prohibido";
             String content = "Por favor ingrese una letra del alfabeto";
@@ -84,12 +84,12 @@ public class GameController {
                 // Recorrer la palabra secreta para verificar si la letra ingresada por el usuario coincide con alguna letra de la palabra secreta
                 for (int i = 0; i < secretWord.getWord().length(); i++) {
                     if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
-                        wordsTxts[i].setText(letter);
+                        wordsTxts[i].setText(letter.toUpperCase());
                         alertWinner();
                     }
                     countLifes();// Contar las vidas restantes
                 }
-                if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText()))){
+                if (!secretWord.getWord().contains(textFieldInsertLetter.getText().toLowerCase())){
                     actualizar();
                 }
                 textFieldInsertLetter.clear();
@@ -111,12 +111,20 @@ public class GameController {
 
     @FXML
     public void onHandleButtonHelp(ActionEvent event)throws IOException {
-        if (helpCount < 3) {
+        if (countLifes>6){
+            String title = "Error";
+            String header = "Vidas agotadas";
+            String content = "No puedes ingresar mas letras";
+            new AlertBox().showMessage(title, header, content);
+            WelcomeStage.getInstance();
+            GameStage.deleteInstance();
+        }
+        else if (helpCount < 3 ) {
             // Recorrer los campos de texto para verificar si la letra coincide con alguna letra de la palabra secreta
             for (int i = 0; i < wordsTxts.length; i++) {
                 if (wordsTxts[i].getText().isEmpty()) {// Verificar si el campo de texto está vacío
                     char letter = secretWord.getLetterAtIndex(i); // Obtener la letra correspondiente al índice
-                    wordsTxts[i].setText(Character.toString(letter)); // Mostrar la letra en el campo de texto
+                    wordsTxts[i].setText(Character.toString(letter).toUpperCase()); // Mostrar la letra en el campo de texto
                     break;
                 }
             }
@@ -161,7 +169,7 @@ public class GameController {
     }
     // Método que cuenta las vidas restantes
     public void countLifes() {
-        if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText()))) {
+        if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText().toLowerCase()))) {
             int maxLifes = 6;
             int numberLifes = maxLifes - countLifes;
             labelNumberLifes.setText(String.valueOf(numberLifes));
