@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #9badb7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hanged.controller.GameController">
   <columnConstraints>
@@ -42,7 +41,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="labelGame" text="Digita en cada casilla una letra">
+            <Label fx:id="labelGame" text="Preciona jugar para iniciar el juego">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -66,9 +65,9 @@
       </VBox>
       <GridPane alignment="TOP_CENTER" GridPane.rowIndex="2">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.66667302449545" minWidth="10.0" prefWidth="87.33333333333333" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.99999618530273" minWidth="10.0" prefWidth="96.66664632161458" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.66666666666666" minWidth="10.0" prefWidth="153.3333536783854" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.66667302449545" minWidth="10.0" prefWidth="99.33333333333333" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.66665140787757" minWidth="10.0" prefWidth="144.00005594889325" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.66666666666666" minWidth="10.0" prefWidth="95.33327738444012" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -78,18 +77,43 @@
             <HBox fx:id="gameHBoxLayout" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="textFieldInsertLetter" />
-                  <Button fx:id="buttonInsertLetter" mnemonicParsing="false" onAction="#onHandleButtonInsert" text="Insertar Letra" />
+                  <Label text="Inserte Una letra" visible="false">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textFieldInsertLetter" maxWidth="30.0" style="-fx-border-width: 3; -fx-border-color: black;" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></TextField>
+                  <Button fx:id="buttonInsertLetter" mnemonicParsing="false" onAction="#onHandleButtonInsert" style="-fx-background-color: #9badb7;" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@images/buttonInsert.png" />
+                        </ImageView>
+                     </graphic></Button>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onHandleButtonHelp" text="Ayuda" />
+                  <Button fx:id="buttonHelp" mnemonicParsing="false" onAction="#onHandleButtonHelp" style="-fx-background-color: #9badb7;" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@images/buttonHelp.png" />
+                         </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <VBox alignment="CENTER" prefHeight="127.0" prefWidth="128.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onHandleButtonBackWelcome" text="Ingresar palabra nueva" />
+                  <Button mnemonicParsing="false" onAction="#onHandleButtonBackWelcome" prefHeight="39.0" prefWidth="107.0" style="-fx-background-color: #9badb7;">
+                     <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@images/buttonBack.png" />
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </VBox>
          </children>
@@ -103,8 +127,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Vidas" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vidas" wrappingWidth="40.803375244140625" GridPane.columnIndex="1" />
+            <Label fx:id="labelLifes" text="Vidas" visible="false" />
+            <Label fx:id="labelNumberLifes" text="Label" visible="false" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

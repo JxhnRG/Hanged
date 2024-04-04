@@ -20,29 +20,59 @@ public class GameController {
     private TextField wordsTxts[];
     @FXML
     private Button buttonPlay;
+    @FXML
+    private Button buttonInsertLetter;
+    @FXML
+    private TextField textFieldInsertLetter;
+    @FXML
+    private Label labelGame;
+    @FXML
+    private Label labelLifes;
+    @FXML
+    private Label labelNumberLifes;
+    @FXML
+    private Button buttonHelp;
 
     private SecretWord secretWord;
     @FXML
-    private Button buttonInsertLetter;
-    public void ocultarButton(){
-
-    }
+    private TextField wordTxt;
+    @FXML
     public void onHandleButtonPlay(ActionEvent event){
-        wordsTxts= new TextField[secretWord.getWord().length()];
-        for (int i=0; i<secretWord.getWord().length(); i++) {
-            TextField wordTxt = new TextField();
-            wordTxt.setPrefWidth(30);
-            gameHBoxLayout.getChildren().add(wordTxt);
-            //keyPressed(wordTxt, i);
-            //wordsTxts[i] = wordTxt;
-            buttonPlay.setVisible(false);
-            wordTxt.setDisable(true);
-            }
+        texFieldInsert();
+        buttonPlay.setVisible(false);
+        buttonInsertLetter.setVisible(true);
+        textFieldInsertLetter.setVisible(true);
+        labelGame.setVisible(false);
+        labelLifes.setVisible(true);
+        labelNumberLifes.setVisible(true);
+        buttonHelp.setVisible(true);
    }
    @FXML
-   public void onHandleButtonInsert(ActionEvent event){
-       System.out.println(secretWord.getWord());
+   public void onHandleButtonInsert(ActionEvent event) {
+       String letter = textFieldInsertLetter.getText().trim();
+       if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$")==false) {
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+           // Establecer el título de la alerta
+           alert.setTitle("Error");
+
+           // Establecer el encabezado de la alerta
+           alert.setHeaderText("Caracter prohibido");
+
+           // Establecer el contenido de la alerta
+           alert.setContentText("Por favor ingrese una letra del alfabeto");
+
+           // Mostrar la alerta y esperar a que el usuario la cierre
+           alert.showAndWait();
+       }else {
+           for (int i = 0; i < secretWord.getWord().length(); i++) {
+               if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
+                   wordsTxts[i].setText(letter);
+               }
+           }
        }
+       textFieldInsertLetter.clear();
+   }
    public void onHandleButtonHelp(ActionEvent event){
        System.out.println("Help");
    }
@@ -54,4 +84,15 @@ public class GameController {
     public void setSecretWord(SecretWord secretWord) {
         this.secretWord = secretWord;
     }
+    public void texFieldInsert(){
+        wordsTxts = new TextField[secretWord.getWord().length()];
+        for (int i=0; i<secretWord.getWord().length(); i++) {
+            wordsTxts[i]= new TextField();
+            wordsTxts[i].setDisable(true);
+            wordsTxts[i].setPrefWidth(30);
+            gameHBoxLayout.getChildren().add(wordsTxts[i]);
+        }
+
+    }
+
 }
