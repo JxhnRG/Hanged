@@ -185,7 +185,6 @@ public class GameController {
         String PATH = "/com/example/hanged/images/hangedImage/";
         Image image= new Image(String.valueOf(getClass().getResource(PATH + "hanged" + countImages + ".png")));
         imageViewHanged.setImage(image);
-        System.out.println(countImages);
     }
     public void alertWinner() throws IOException{
         if (isWordComplete()) {

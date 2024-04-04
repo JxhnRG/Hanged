@@ -48,7 +48,6 @@ public class WelcomeController {
             SecretWord secretWord = new SecretWord(secretWordTextField.getText().trim());
             GameStage.getInstance().getGameController().setSecretWord(secretWord);
             WelcomeStage.deleteInstance();
-            System.out.println(secretWord.getWord());
         }
     }
 }
