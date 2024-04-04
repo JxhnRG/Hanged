@@ -54,7 +54,7 @@ public class GameController {
         buttonHelp.setVisible(true);
    }
    @FXML
-   public void onHandleButtonInsert(ActionEvent event) {
+   public void onHandleButtonInsert(ActionEvent event) throws IOException{
        String letter = textFieldInsertLetter.getText().trim();
        if (lifesCount < 6) {
            if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
@@ -88,6 +88,9 @@ public class GameController {
 
                        // Mostrar la alerta y esperar a que el usuario la cierre
                        alert.showAndWait();
+                       WelcomeStage.getInstance();
+                       GameStage.deleteInstance();
+
                    }
                }
            }
@@ -107,6 +110,8 @@ public class GameController {
 
            // Mostrar la alerta y esperar a que el usuario la cierre
            alert.showAndWait();
+           WelcomeStage.getInstance();
+           GameStage.deleteInstance();
        }
    }
 
