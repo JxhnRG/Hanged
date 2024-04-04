@@ -3,6 +3,7 @@ package com.example.hanged.controller;
 import com.example.hanged.model.SecretWord;
 import com.example.hanged.view.GameStage;
 import com.example.hanged.view.WelcomeStage;
+import com.example.hanged.view.alert.AlertBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,35 +17,20 @@ public class WelcomeController {
     private TextField secretWordTextField;
     @FXML
     public void onHandleButtonPlay(ActionEvent event) throws IOException {
+        //Condicionales para verificar que la palabra sea valida
         if(secretWordTextField.getText().length()<=0) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-            // Establecer el título de la alerta
-            alert.setTitle("Error");
-
-            // Establecer el encabezado de la alerta
-            alert.setHeaderText("Palabra demasiado corta");
-
-            // Establecer el contenido de la alerta
-            alert.setContentText("Por favor ingrese una palabra valida");
-
-            // Mostrar la alerta y esperar a que el usuario la cierre
-            alert.showAndWait();
+            String tittle = "Error";
+            String header = "Palabra demasiado corta";
+            String content = "Por favor ingrese una palabra valida";
+            new AlertBox().showMessage(tittle, header, content);
         } else if (secretWordTextField.getText().matches("^[a-zA-Z]+$")==false) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-            // Establecer el título de la alerta
-            alert.setTitle("Error");
-
-            // Establecer el encabezado de la alerta
-            alert.setHeaderText("Palabra con caracteres prohibidos");
-
-            // Establecer el contenido de la alerta
-            alert.setContentText("Por favor ingrese una palabra valida");
-
-            // Mostrar la alerta y esperar a que el usuario la cierre
-            alert.showAndWait();
-        } else {
+            String tittle = "Error";
+            String header = "Palabra con caracteres prohibidos";
+            String content = "Por favor ingrese una palabra valida";
+            new AlertBox().showMessage(tittle, header, content);
+        }
+        //Si la palabra es valida se crea un objeto de tipo SecretWord y se setea en el GameController
+        else {
             SecretWord secretWord = new SecretWord(secretWordTextField.getText().trim());
             GameStage.getInstance().getGameController().setSecretWord(secretWord);
             WelcomeStage.deleteInstance();
