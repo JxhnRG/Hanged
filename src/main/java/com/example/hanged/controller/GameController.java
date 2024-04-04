@@ -121,6 +121,7 @@ public class GameController {
             GameStage.deleteInstance();
         }
         countLifes();
+        actualizar();
     }
 
     @FXML
@@ -180,13 +181,19 @@ public class GameController {
         }
 
     }
+
     public void countLifes() {
-        String letter = textFieldInsertLetter.getText().trim();
         if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText()))) {
-            int maxLifes=6;
-            int numberLifes=maxLifes-countLifes;
+            int maxLifes = 6;
+            int numberLifes = maxLifes - countLifes;
             labelNumberLifes.setText(String.valueOf(numberLifes));
-            }
+        }
 
     }
+    public void actualizar(){
+        String PATH = "/com/example/hanged/images/hangedImage/";
+        Image image= new Image(String.valueOf(getClass().getResource(PATH + "hanged" + countLifes + ".png")));
+        imageViewHanged.setImage(image);
+    }
 }
+
