@@ -33,6 +33,9 @@ public class GameController {
     @FXML
     private Button buttonHelp;
 
+    @FXML
+    private int helpCount = 0;
+
     private SecretWord secretWord;
     @FXML
     private TextField wordTxt;
@@ -73,8 +76,32 @@ public class GameController {
        }
        textFieldInsertLetter.clear();
    }
+   @FXML
    public void onHandleButtonHelp(ActionEvent event){
-       System.out.println("Help");
+       if (helpCount < 3) {
+           for (int i = 0; i < wordsTxts.length; i++) {
+               if (wordsTxts[i].getText().isEmpty()) {
+                   char letter = secretWord.getLetterAtIndex(i); // Obtener la letra correspondiente al índice
+                   wordsTxts[i].setText(Character.toString(letter)); // Mostrar la letra en el campo de texto
+                   break;
+               }
+           }
+           helpCount++; // Incrementar el contador
+       } else {
+           // Muestra un mensaje indicando que la función de ayuda ya se ha utilizado tres veces
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           // Establecer el título de la alerta
+           alert.setTitle("AYUDAS");
+
+           // Establecer el encabezado de la alerta
+           alert.setHeaderText("Ayudas agotadas");
+
+           // Establecer el contenido de la alerta
+           alert.setContentText("Haz acabado las 3 ayudas disponibles.");
+
+           // Mostrar la alerta y esperar a que el usuario la cierre
+           alert.showAndWait();
+       }
    }
    @FXML
    public void onHandleButtonBackWelcome(ActionEvent event) throws IOException {

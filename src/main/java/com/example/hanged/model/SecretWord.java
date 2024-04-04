@@ -9,6 +9,13 @@ public class SecretWord {
         this.arrayWord=word.split("");
     }
 
+    public char getLetterAtIndex(int index) {
+        if (index >= 0 && index < arrayWord.length) {
+            return arrayWord[index].charAt(0);
+        }
+        return ' '; // Si el índice está fuera de rango, retorna un espacio en blanco
+    }
+
     public String getWord() {
         return word;
     }
