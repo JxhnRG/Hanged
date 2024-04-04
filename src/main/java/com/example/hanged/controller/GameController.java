@@ -76,7 +76,22 @@ public class GameController {
             // Mostrar la alerta y esperar a que el usuario la cierre
             alert.showAndWait();
             textFieldInsertLetter.clear();
-        }else{
+        } else if (textFieldInsertLetter.getText().length()>1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            // Establecer el título de la alerta
+            alert.setTitle("Error");
+
+            // Establecer el encabezado de la alerta
+            alert.setHeaderText("Caracter muy largo");
+
+            // Establecer el contenido de la alerta
+            alert.setContentText("Por favor ingrese un solo caracter");
+
+            // Mostrar la alerta y esperar a que el usuario la cierre
+            alert.showAndWait();
+            textFieldInsertLetter.clear();
+        } else{
             if (countLifes <= 6) {
                 for (int i = 0; i < secretWord.getWord().length(); i++) {
                     if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
