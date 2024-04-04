@@ -9,10 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
+import java.util.List;
 
 public class GameController {
     @FXML
@@ -31,10 +33,7 @@ public class GameController {
     private Button buttonHelp;
 
     @FXML
-    private int helpCount = 0;
-
-    @FXML
-    private int lifesCount = 0;
+    private int helpCount = 1;
 
     private SecretWord secretWord;
     @FXML
@@ -42,7 +41,11 @@ public class GameController {
     @FXML
     private ImageView imageViewGame;
     @FXML
-    public void onHandleButtonPlay(ActionEvent event){
+    private ImageView imageViewHanged;
+    private int countLifes = 1;
+
+    @FXML
+    public void onHandleButtonPlay(ActionEvent event) {
         texFieldInsert();
         buttonPlay.setVisible(false);
         buttonInsertLetter.setVisible(true);
@@ -51,123 +54,139 @@ public class GameController {
         labelNumberLifes.setVisible(true);
         buttonHelp.setVisible(true);
         imageViewGame.setVisible(false);
-   }
-   @FXML
-   public void onHandleButtonInsert(ActionEvent event) throws IOException{
-       String letter = textFieldInsertLetter.getText().trim();
-       if (lifesCount < 6) {
-           if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
-               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        imageViewHanged.setVisible(true);
+        labelNumberLifes.setText("6");
+    }
 
-               // Establecer el título de la alerta
-               alert.setTitle("Error");
+    @FXML
+    public void onHandleButtonInsert(ActionEvent event) throws IOException {
+        String letter = textFieldInsertLetter.getText().trim();
+        if (countLifes < 6) {
+            if (textFieldInsertLetter.getText().matches("^[a-zA-Z]+$") == false) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-               // Establecer el encabezado de la alerta
-               alert.setHeaderText("Caracter prohibido");
+                // Establecer el título de la alerta
+                alert.setTitle("Error");
 
-               // Establecer el contenido de la alerta
-               alert.setContentText("Por favor ingrese una letra del alfabeto");
+                // Establecer el encabezado de la alerta
+                alert.setHeaderText("Caracter prohibido");
 
-               // Mostrar la alerta y esperar a que el usuario la cierre
-               alert.showAndWait();
-           } else {
-               for (int i = 0; i < secretWord.getWord().length(); i++) {
-                   if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
-                       wordsTxts[i].setText(letter);
-                   }if(isWordComplete()){
-                       Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                       // Establecer el título de la alerta
-                       alert.setTitle("GANASTE");
+                // Establecer el contenido de la alerta
+                alert.setContentText("Por favor ingrese una letra del alfabeto");
 
-                       // Establecer el encabezado de la alerta
-                       alert.setHeaderText("Felicidades");
+                // Mostrar la alerta y esperar a que el usuario la cierre
+                alert.showAndWait();
+            } else {
+                for (int i = 0; i < secretWord.getWord().length(); i++) {
+                    if (String.valueOf(secretWord.getWord().charAt(i)).equalsIgnoreCase(letter)) {
+                        wordsTxts[i].setText(letter);
+                    }
+                    if (isWordComplete()) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        // Establecer el título de la alerta
+                        alert.setTitle("GANASTE");
 
-                       // Establecer el contenido de la alerta
-                       alert.setContentText("Haz adivinado la palabra secreta.");
+                        // Establecer el encabezado de la alerta
+                        alert.setHeaderText("Felicidades");
 
-                       // Mostrar la alerta y esperar a que el usuario la cierre
-                       alert.showAndWait();
-                       WelcomeStage.getInstance();
-                       GameStage.deleteInstance();
+                        // Establecer el contenido de la alerta
+                        alert.setContentText("Haz adivinado la palabra secreta.");
 
-                   }
-               }
-           }
-           textFieldInsertLetter.clear();
-           lifesCount++;
-       } else {
-           // Muestra un mensaje indicando que el usuario ha perdido
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
-           // Establecer el título de la alerta
-           alert.setTitle("PERDISTE");
+                        // Mostrar la alerta y esperar a que el usuario la cierre
+                        alert.showAndWait();
+                        WelcomeStage.getInstance();
+                        GameStage.deleteInstance();
 
-           // Establecer el encabezado de la alerta
-           alert.setHeaderText("Has perdido");
+                    }
+                    countLifes();
+                }
+            }
+            textFieldInsertLetter.clear();
+            countLifes++;
+        } else {
+            // Muestra un mensaje indicando que el usuario ha perdido
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            // Establecer el título de la alerta
+            alert.setTitle("PERDISTE");
 
-           // Establecer el contenido de la alerta
-           alert.setContentText("Haz agotado tus 6 vidas.");
+            // Establecer el encabezado de la alerta
+            alert.setHeaderText("Has perdido");
 
-           // Mostrar la alerta y esperar a que el usuario la cierre
-           alert.showAndWait();
-           WelcomeStage.getInstance();
-           GameStage.deleteInstance();
-       }
-   }
+            // Establecer el contenido de la alerta
+            alert.setContentText("Haz agotado tus 6 vidas.");
 
-   @FXML
-   public void onHandleButtonHelp(ActionEvent event){
-       if (helpCount < 3) {
-           for (int i = 0; i < wordsTxts.length; i++) {
-               if (wordsTxts[i].getText().isEmpty()) {
-                   char letter = secretWord.getLetterAtIndex(i); // Obtener la letra correspondiente al índice
-                   wordsTxts[i].setText(Character.toString(letter)); // Mostrar la letra en el campo de texto
-                   break;
-               }
-           }
-           helpCount++; // Incrementar el contador
-       } else {
-           // Muestra un mensaje indicando que la función de ayuda ya se ha utilizado tres veces
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
-           // Establecer el título de la alerta
-           alert.setTitle("AYUDAS");
+            // Mostrar la alerta y esperar a que el usuario la cierre
+            alert.showAndWait();
+            WelcomeStage.getInstance();
+            GameStage.deleteInstance();
+        }
+        countLifes();
+    }
 
-           // Establecer el encabezado de la alerta
-           alert.setHeaderText("Ayudas agotadas");
+    @FXML
+    public void onHandleButtonHelp(ActionEvent event) {
+        if (helpCount < 3) {
+            for (int i = 0; i < wordsTxts.length; i++) {
+                if (wordsTxts[i].getText().isEmpty()) {
+                    char letter = secretWord.getLetterAtIndex(i); // Obtener la letra correspondiente al índice
+                    wordsTxts[i].setText(Character.toString(letter)); // Mostrar la letra en el campo de texto
+                    break;
+                }
+            }
+            helpCount++; // Incrementar el contador
+        } else {
+            // Muestra un mensaje indicando que la función de ayuda ya se ha utilizado tres veces
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            // Establecer el título de la alerta
+            alert.setTitle("AYUDAS");
 
-           // Establecer el contenido de la alerta
-           alert.setContentText("Haz acabado las 3 ayudas disponibles.");
+            // Establecer el encabezado de la alerta
+            alert.setHeaderText("Ayudas agotadas");
 
-           // Mostrar la alerta y esperar a que el usuario la cierre
-           alert.showAndWait();
-       }
-   }
+            // Establecer el contenido de la alerta
+            alert.setContentText("Haz acabado las 3 ayudas disponibles.");
 
-   private boolean isWordComplete() {
-       for (int i = 0; i < wordsTxts.length; i++) {
-           if (wordsTxts[i].getText().isEmpty()) {
-               return false;
-           }
-       }
-       return true;
-   }
+            // Mostrar la alerta y esperar a que el usuario la cierre
+            alert.showAndWait();
+        }
+    }
 
-   @FXML
-   public void onHandleButtonBackWelcome(ActionEvent event) throws IOException {
-       WelcomeStage.getInstance();
-       GameStage.deleteInstance();
-   }
+    private boolean isWordComplete() {
+        for (int i = 0; i < wordsTxts.length; i++) {
+            if (wordsTxts[i].getText().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @FXML
+    public void onHandleButtonBackWelcome(ActionEvent event) throws IOException {
+        WelcomeStage.getInstance();
+        GameStage.deleteInstance();
+    }
+
     public void setSecretWord(SecretWord secretWord) {
         this.secretWord = secretWord;
     }
-    public void texFieldInsert(){
+
+    public void texFieldInsert() {
         wordsTxts = new TextField[secretWord.getWord().length()];
-        for (int i=0; i<secretWord.getWord().length(); i++) {
-            wordsTxts[i]= new TextField();
+        for (int i = 0; i < secretWord.getWord().length(); i++) {
+            wordsTxts[i] = new TextField();
             wordsTxts[i].setDisable(true);
             wordsTxts[i].setPrefWidth(30);
             gameHBoxLayout.getChildren().add(wordsTxts[i]);
         }
 
     }
+    public void countLifes() {
+        String letter = textFieldInsertLetter.getText().trim();
+        if (!secretWord.getWord().contains(String.valueOf(textFieldInsertLetter.getText()))) {
+            int maxLifes=6;
+            int numberLifes=maxLifes-countLifes;
+            labelNumberLifes.setText(String.valueOf(numberLifes));
+            }
 
+    }
 }

@@ -27,7 +27,9 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageViewHanged" fitHeight="213.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                <Image url="@images/hangedImage/hanged1.png" />
+            </ImageView>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
@@ -138,7 +140,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="labelNumberLifes" contentDisplay="TOP" prefHeight="33.0" prefWidth="36.0" text="Label" visible="false" GridPane.columnIndex="1">
+            <Label fx:id="labelNumberLifes" contentDisplay="TOP" prefHeight="37.0" prefWidth="51.0" text="Label" visible="false" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
