@@ -28,27 +28,16 @@
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="buttonPlay" mnemonicParsing="false" onAction="#onHandleButtonPlay" prefHeight="39.0" prefWidth="92.0" style="-fx-background-color: #9badb7;">
-               <graphic>
-                  <ImageView fitHeight="31.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/ButtonPlay.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="labelGame" text="Preciona jugar para iniciar el juego">
+            <ImageView fx:id="imageViewGame" fitHeight="68.0" fitWidth="337.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@images/imageViewGame.png" />
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets left="140.0" top="290.0" />
                </VBox.margin>
-               <font>
-                  <Font name="Arial Black" size="16.0" />
-               </font>
-            </Label>
+            </ImageView>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
@@ -88,10 +77,13 @@
                      </VBox.margin></TextField>
                   <Button fx:id="buttonInsertLetter" mnemonicParsing="false" onAction="#onHandleButtonInsert" style="-fx-background-color: #9badb7;" visible="false">
                      <graphic>
-                        <ImageView fitHeight="34.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="26.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
                             <Image url="@images/buttonInsert.png" />
                         </ImageView>
-                     </graphic></Button>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
@@ -102,18 +94,37 @@
                                 <Image url="@images/buttonHelp.png" />
                          </ImageView>
                      </graphic>
+                     <VBox.margin>
+                        <Insets top="43.0" />
+                     </VBox.margin>
                   </Button>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="127.0" prefWidth="128.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
+                  <Button fx:id="buttonPlay" mnemonicParsing="false" onAction="#onHandleButtonPlay" prefHeight="39.0" prefWidth="92.0" style="-fx-background-color: #9badb7;">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/ButtonPlay.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="-20.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#onHandleButtonBackWelcome" prefHeight="39.0" prefWidth="107.0" style="-fx-background-color: #9badb7;">
                      <graphic>
                         <ImageView fitHeight="29.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@images/buttonBack.png" />
+                           <image>
+                              <Image url="@images/buttonBack.png" />
+                           </image>
                         </ImageView>
                      </graphic>
-                  </Button>
+                     <padding>
+                        <Insets bottom="3.0" left="-20.0" />
+                     </padding></Button>
                </children>
             </VBox>
          </children>
@@ -127,8 +138,20 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="labelLifes" text="Vidas" visible="false" />
-            <Label fx:id="labelNumberLifes" text="Label" visible="false" GridPane.columnIndex="1" />
+            <Label fx:id="labelNumberLifes" contentDisplay="TOP" prefHeight="33.0" prefWidth="36.0" text="Label" visible="false" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin></Label>
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="imageViewLifes" fitHeight="76.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                      <Image url="@images/imageViewHeart.png" />
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>

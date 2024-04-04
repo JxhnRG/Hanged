@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -25,10 +26,6 @@ public class GameController {
     @FXML
     private TextField textFieldInsertLetter;
     @FXML
-    private Label labelGame;
-    @FXML
-    private Label labelLifes;
-    @FXML
     private Label labelNumberLifes;
     @FXML
     private Button buttonHelp;
@@ -41,17 +38,19 @@ public class GameController {
 
     private SecretWord secretWord;
     @FXML
-    private TextField wordTxt;
+    private ImageView imageViewLifes;
+    @FXML
+    private ImageView imageViewGame;
     @FXML
     public void onHandleButtonPlay(ActionEvent event){
         texFieldInsert();
         buttonPlay.setVisible(false);
         buttonInsertLetter.setVisible(true);
         textFieldInsertLetter.setVisible(true);
-        labelGame.setVisible(false);
-        labelLifes.setVisible(true);
+        imageViewLifes.setVisible(true);
         labelNumberLifes.setVisible(true);
         buttonHelp.setVisible(true);
+        imageViewGame.setVisible(false);
    }
    @FXML
    public void onHandleButtonInsert(ActionEvent event) throws IOException{
